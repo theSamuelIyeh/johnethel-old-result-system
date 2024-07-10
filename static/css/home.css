@@ -1,0 +1,164 @@
+.box {
+    box-sizing: border-box;
+    font-family: "raleway", sans-serif;
+    
+}
+
+.tabs {
+    position: absolute;
+    top: 50%!important;
+    left: 50%!important;
+    transform:translate(-50%, -50%)!important;
+    width:100%;
+    height:80vh;
+    background: #eee;
+    overflow:hidden;
+    display:flex;
+}
+
+.tab-headers {
+    display:flexbox!important;
+}
+
+.tabs .tab-header {
+    width: 150px;
+    overflow: hidden;
+}
+
+.tabs .tab-header-2 {
+    width: 150px;
+    overflow: hidden;
+}
+
+.tabs .tab-header > div {
+    width: 100%;
+    height:calc(34.6vh / 7);
+    background: #ddd;
+    text-indent: 17px;
+    color: #600;
+    font-weight:600;
+    font-size: 14px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    border-left: 5px solid #ddd;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+}
+
+.tabs .tab-header-2 > div {
+    width: 100%;
+    height:calc(33.7vh / 7);
+    background: #ddd;
+    text-indent: 17px;
+    color: #600;
+    font-weight:600;
+    font-size: 14px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    border-left: 5px solid #ddd;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+}
+
+.heading {
+    width: 150px;
+    position: relative !important;
+    height: 40px!important;
+    background-color:#00acee!important;
+    z-index: 2;
+}
+.heading > div {
+    width: 100%;
+    height:100%;
+    background: #00acee;
+    text-indent: 30px;
+    color: #fff;
+    font-weight:600;
+    font-size: 14px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    transition: all 200ms ease-in-out;
+    text-align:center;
+}
+
+.tabs .tab-header > div.actives {
+    border-left: 5px solid #00acee;
+    color: #00acee;
+    background: #eee;
+}
+
+.tabs .tab-header-2 > div.actives {
+    border-left: 5px solid #00acee;
+    color: #00acee;
+    background: #eee;
+}
+
+.tabs .tab-content {
+    padding: 20px 30px;
+    flex:1;
+    position: relative;
+    height: 100vh;
+    z-index: 100!important;
+    width: 100%!important;
+    
+}
+
+.tabs .tab-content > div {
+    position: absolute;
+    overflow-y: scroll;
+    height: 580px;
+    scroll-behavior: smooth;
+    width: 100%;
+    top: -50vh;
+    left: 100px;
+    opacity:0;
+    transition: opacity 200ms ease-in-out 0ms,
+                left 300ms ease-in-out 0ms,
+                top 0ms ease-in-out 3000ms;
+}
+
+.tabs .tab-content > div.actives {
+    top: 20px;
+    left: 20px;
+    opacity: 1;
+    z-index: 10!important;
+    transition: opacity 200ms ease-in-out 0ms,
+                left 300ms ease-in-out 0ms,
+                top 0ms ease-in-out 0ms;
+}
+
+.nurresultlistlist .studentresultcontent > div {
+    position: absolute;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    height: auto;
+    scroll-behavior: smooth;
+    width: 96%;
+    top: 0vh;
+    left: 50px;
+    opacity:0;
+    transition: opacity 200ms ease-in-out 0ms,
+                left 300ms ease-in-out 0ms,
+                top 0ms ease-in-out 3000ms;
+}
+
+.nurresultlistlist .studentresultcontent > div.active {
+    top: 20px;
+    left: 20px;
+    opacity: 1;
+    z-index: 10!important;
+    transition: opacity 200ms ease-in-out 0ms,
+                left 300ms ease-in-out 0ms,
+                top 0ms ease-in-out 0ms;
+}
+
+.field-icon {
+    float: right;
+    margin-left: -25px;
+    margin-top: -25px;
+    position: relative;
+    z-index: 2;
+}

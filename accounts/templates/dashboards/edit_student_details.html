@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Edit Student Details
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock css %}
+
+{% block content %}
+{% include 'ordinary_navbar.html' %}
+
+<style>
+    .bg {
+  
+  width: 100%!important;
+  height: 100vh!important;
+}
+</style>
+
+<script type="text/javascript">
+     $.ajax({
+        type:'GET',
+        url: 'class/session/',
+        success: function(response){
+            
+            const nooo = document.getElementById('newstudentsessionslistdropdown')
+            const sessionsdropdown = response.class_sessions_val
+            sessionsdropdown.map(item=>{
+                
+                const option12 = document.createElement('option')
+                
+
+                option12.textContent = item.session_name
+                option12.setAttribute('value', item.session_name)
+                option12.setAttribute('id', item.id)
+
+                nooo.appendChild(option12);
+            })
+        },
+        error: function(error){
+            console.log(error)
+        }
+    });
+</script>
+
+<div class="container-fluid bg" style="background-color: #eee; margin-top: 70px!important; padding-top: 20px!important;">
+    <form method="POST" action="" class="form-container">
+        {% csrf_token %}
+        <h3 class="">EDIT STUDENT DETAIL</h3>
+        <form action="" autocomplete="new-form" class="newstudentform" id="newcreatestudentform">
+            <div class="row col-11">
+                <select name="" id="newstudentsessionslistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>{{stud.Session}}</option>
+                </select>
+                <div class="col-2"></div>
+                <select name="" id="newstudentsectionlistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>{{stud.Section}}</option>
+                </select>
+            
+            
+            </div>
+        </br>
+            <div class="row col-11">
+                <select name="" id="newstudentclasslistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>{{stud.Class}}</option>
+                </select>
+                <div class="col-2"></div>
+                <select name="" id="newstudenttermlistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>{{stud.Term}}</option>
+                </select>
+            </div>
+        </br>
+            <div class="row col-11">
+                <input type="text" name="" id="newstudentfirstnameinput" placeholder="{{stud.First_name}}" class="col-3 ui dropdown form-control">
+                <div class="col-1"></div>
+                <input type="text" name="" id="newstudentmiddlenameinput" placeholder="{{stud.Middle_name}}" class="col-3 ui dropdown form-control">
+                <div class="col-1"></div>
+                <input type="text" name="" id="newstudentlastnameinput" placeholder="{{stud.Last_name}}" class="col-3 ui dropdown form-control">
+            </div>
+        </br>
+            <div class="row col-11">
+                <input type="text" name="" id="newstudentusernameinput" placeholder="{{stud.username}}" class="col-3 ui dropdown form-control">
+                <div class="col-1"></div>
+                <select name="" id="newstudentgenderlistdropdown" class="col-3 ui dropdown form-control">
+                    <option value="Gender" selected disabled hidden>{{stud.Gender}}</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                <div class="col-1"></div>
+                <input type="date" name="" id="newstudentdateofbirthinput" class="col-3 ui dropdown form-control" value="{{stud.Date_of_birth}}">
+            </div>
+        </br>
+        <form action="" id="formdata" method="post" name="file_input">
+            <input type="file" name="file_input" accept="image/png, image/jpeg" id="newstudentpassport" enctype="multipart/form-data" onchange="preview_image(event)">
+            <br><hr>
+            <img id="display_img" style="max-height:210px;"/>
+        </form> 
+        <div class="row">
+            <div class="col-10"></div>
+            <button type="button" class="btn btn-outline-success" id="newcreatestudent2">SAVE</button>
+        </div>   
+        </form>
+        <br>
+        
+        
+    </form>
+    </div>
+    
+</div>
+media/{{photo.passport}}
+<br>
+{% static 'img/background.jpg' %}
+<img src="{% static 'img/background.jpg' %}">
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock css %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<div class="profile container-fluid box">
+    <div class="tabs">
+        {% include 'dashboards/sidebar.html' %}
+        {% include 'dashboards/sidebar-content.html' %}   
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/main2.js' %}"></script>
+{% endblock %}

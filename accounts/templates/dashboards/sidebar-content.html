@@ -1,0 +1,648 @@
+
+<div class="tab-content bodyclass" id="content001">
+    <div class="actives bodyclass2">
+        <h2>SESSIONS</h2>
+            <div class="col-5">
+                <form id="createsessionform" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="">
+                        {{field}}
+                    </div>
+                {% endfor %}
+                    </br>
+                    <button type="button" class="btn-outline-primary btn" id="createsession">CREATE</button>
+                </form>
+            </div>
+        </br>
+        <div id="sessionlist" class="col-11 mt-5">
+            {% for form in sessions %}
+            <style>
+                #sessioncard:hover {
+                    cursor: pointer!important;
+                }
+            </style>
+            <div id="sessioncard" class="card mb-1" data-id="{{form.id}}">
+                <div class="card-body">
+                    <input type="text" id="input_{{form.id}}" value="{{form}}" class="form-control col-4 input_" style="margin-left: 15px!important; display: inline;" name="input" data-id="{{form.id}}">
+                    <button type="button" name="submit" class="close float-right delete_ mt-2" id="deletebtn_{{form.id}}" data-id="{{form.id}}">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div>
+        <h2>SECTIONS</h2>
+        <div class="col-5">
+            <form method="POST" id="createsectionform">
+                {% csrf_token %}
+                <div class="row">
+                    <select class="ui dropdown form-control" id="sessionslistdropdown">
+                        <option value="" disabled selected hidden>Choose a Session</option>      
+                      </select>
+                </div>
+            </br>
+                <div class="row">
+                <input type="text" class="form-control" id="sectioninput" placeholder="Section Name">
+                </div>
+                </br>
+                <button type="button" class="btn btn-outline-primary" id="createsection">CREATE</button>
+            </form>
+        </div>
+        </br>
+    
+    <div id="sectionlist" class="col-11 mt-5">
+    {% for form in sections %}
+    <style>
+        #sessioncard:hover {
+            cursor: pointer!important;
+        }
+    </style>
+    <div id="sectioncard" class="card mb-1" data-id="{{form.id}}" name="{{form.session_name}}">
+        <div class="card-body" >
+            <input type="text" id="sectionsessioninput_{{form.id}}" value="{{form.session_name}}" class="form-control col-2 sectionsessioninput_" style="margin-left: 15px!important; display: inline;" name="sessionsectioninput" data-id="{{form.id}}">
+            <input type="text" id="sectioninput_{{form.id}}" value="{{form.section_name}}" class="form-control col-3 sectioninput_" style="margin-left: 30px!important; display: inline;" name="sectioninput" data-id="{{form.id}}">
+                <button type="button" name="submit" class="close float-right sectiondelete_ mt-2" id="sectiondeletebtn_{{form.id}}" value="DELETE" data-id="{{form.id}}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+            
+    </div>
+    <div class="ffi">
+        <h2>CLASSES</h2>
+        <div class="col-5">
+            <form method="POST" id="createclassform">
+                {% csrf_token %}
+                <div class="row">
+                    <select class="ui dropdown form-control" id="class_sessionslistdropdown">
+                        <option value="" disabled selected hidden>Choose a Session</option>      
+                      </select>
+                </div>
+            </br>
+                <div class="row">
+                    <select class="ui dropdown form-control" id="sectionslistdropdown">
+                        <div id="section-default-text"><option value="" hidden disabled selected  class="">Choose a Section</option></div>     
+                      </select>
+                </div>
+                </br>
+                <div class="row">
+                    <input type="text" class="form-control" id="classinput" placeholder="Class Name">
+                    </div>
+                </br>
+                <button type="button" class="btn btn-outline-primary" id="createclass">CREATE</button>
+            </form>
+        </div>
+    </br>
+
+        <div id="classlist" class="col-11 mt-5">
+            {% for form in classes %}
+            <style>
+                #classcard:hover {
+                    cursor: pointer!important;
+                }
+            </style>
+            <div id="classcard" class="card" data-id="{{form.id}}" name="{{form.session_name}}">
+                <div class="card-body">
+                    <input type="text" id="classsessioninput_{{form.id}}" value="{{form.session_name}}" class="form-control col-2 classsessioninput_" style="margin-left: 15px!important; display: inline;" name="classsessioninput" data-id="{{form.id}}">
+                    <input type="text" id="classsectioninput_{{form.id}}" value="{{form.section_name}}" class="form-control col-3 classsectioninput_" style="margin-left: 30px!important; display: inline;" name="classsectioninput" data-id="{{form.id}}">
+                    <input type="text" id="classinput_{{form.id}}" value="{{form.class_name}}" class="form-control col-3 classinput_" style="margin-left: 30px!important; display: inline;" name="classinput" data-id="{{form.id}}">
+                        <button type="button" name="submit" class="classdelete_ close float-right mt-2" id="classdeletebtn_{{form.id}}" value="DELETE" data-id="{{form.id}}">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+            </div>
+            {% endfor %}
+            </div>
+    </div>
+    <div class="subjectallocation">  
+        <h2>SUBJECTS ALLOCATION</h2>
+        <div>
+        </div>
+        <form method="POST" id="createtermsubjectsform">
+        <div class="row col-12 subjectdisplay">
+            
+                {% csrf_token %}
+            <div style="display:inline; border: 2px solid rgb(47, 58, 214)!important; padding: 5px; border-radius: 5px; height: 70vh; margin-right: 0px; overflow:hidden;" class="col-5 float-left subjectdisplay2" id="newid123">
+                <select class="ui dropdown form-control col-5" id="selectsectionsubjects">
+                    <option value="" hidden disabled selected  class="">Choose a Section</option> 
+                    <option value="PRIMARY SECTION" id="primarysectionsubjects">PRIMARY SECTION</option> 
+                    <option value="NURSERY SECTION" id="nurserysectionsubjects">NURSERY SECTION</option>     
+                </select>
+                <div id="subjectslist" style="overflow-y:scroll!important; height: 61vh!important; margin-top: 15px!important;">
+                </div>
+            </div>
+            <div style="text-align: center; margin: auto; display: flex; justify-content: center; display: grid;" class="col-1">
+                <input type="button" value="ADD&rtrif;" class="btn btn-outline-success rounded-pill" id="subjectcreatebtn" style="margin-bottom: 10px; text-align: center; padding-right: 5px; padding-left: 5px;">
+                <input type="button" value="&ltrif;REMOVE" class="btn btn-outline-danger rounded-pill" id="subjectdeletebtn" style="margin-top: 10px; text-align: center; padding-right: 5px; padding-left: 5px;">
+            </div>
+            <div style=" border: 2px solid rgb(47, 58, 214)!important; border-radius: 5px; overflow: hidden; height: 70vh; display: inline; padding: 5px;" class="col-6 float-right subjectdisplay3">
+                <div class="" style="display: flex;">
+                    <select class="ui dropdown form-control col-6 float-left mt-3" id="subjectssessionlistdropdown">
+                        <option value="" hidden disabled selected  class="">Choose a Session</option>    
+                    </select>
+                    <select class="ui dropdown form-control col-6 float-right mt-3" id="subjectsectionslistdropdown">
+                        <div id="section-default-text"><option value="" hidden disabled selected  class="">Choose a Section</option></div>     
+                    </select>
+                </div>
+                <div class="" style="display: flex;">
+                    <select class="ui dropdown form-control col-6 float-left mt-3 mb-7" id="subjectclasslistdropdown">
+                        <div id="section-default-text"><option value="" hidden disabled selected  class="">Choose a Class</option></div>     
+                    </select>
+                    <select class="ui dropdown form-control col-6 float-right mt-3 mb-7" id="subjecttermlistdropdown">
+                        <option value="" hidden disabled selected  class="">Choose a Term</option>    
+                    </select>
+                </div>
+                <div id="termsubjectlist" class="termsubjectdisplay" style="margin-top: 15px!important; height: 52vh!important; overflow-y: scroll!important;">
+
+                </div>
+                
+            </div>
+            
+        </div>
+        </form>
+    </div>
+    <div id="fishpant" class="bodo">
+        {% csrf_token %}
+        <div id="pigpant">
+        <h2>ADD STUDENTS</h2>
+            <form action="" autocomplete="new-form" class="studentform" id="createstudentform">
+                
+            <div class="row col-11">
+    
+                <select name="" id="studentsessionslistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Session</option>
+                </select>
+                <div class="col-2"></div>
+                <select name="" id="studentsectionlistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Section</option>
+                </select>
+            
+            
+            </div>
+        </br>
+            <div class="row col-11">
+                <select name="" id="studentclasslistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Class</option>
+                </select>
+                <div class="col-2"></div>
+                <select name="" id="studenttermlistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Term</option>
+                </select>
+            </div>
+        </br>
+            <div class="row col-11">
+                <input type="text" name="" id="studentfirstnameinput" placeholder="First name" class="col-3 ui dropdown form-control">
+                <div class="col-1"></div>
+                <input type="text" name="" id="studentmiddlenameinput" placeholder="Middle name" class="col-3 ui dropdown form-control">
+                <div class="col-1"></div>
+                <input type="text" name="" id="studentlastnameinput" placeholder="Last name" class="col-3 ui dropdown form-control">
+            </div>
+        </br>
+            <div class="row col-11">
+                <input type="text" name="" id="studentusernameinput" placeholder="Username" class="col-3 ui dropdown form-control">
+                <div class="col-1"></div>
+                <select name="" id="studentgenderlistdropdown" class="col-3 ui dropdown form-control">
+                    <option value="Gender" selected disabled hidden>Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+                <div class="col-1"></div>
+                <input type="date" name="" id="studentdateofbirthinput" class="col-3 ui dropdown form-control">
+            </div>
+        </br>
+            <div class="row col-11">
+                <input type="password" name="" id="studentpassword1" placeholder="Password" class="col-3 ui dropdown form-control" autocomplete="new-password"><input type="checkbox" onclick="myfunction22()">show password
+                <div class="col-1"></div>
+                <input type="password" name="" id="studentpassword2" placeholder="Confirm Password" class="col-3 ui dropdown form-control"><input type="checkbox" onclick="myfunction22()">show password
+            </div>
+        </br>
+    
+        <form action="" id="formdata" method="post" name="file_input">
+            <input type="file" name="file_input" accept="image/png, image/jpeg" id="studentpassport" enctype="multipart/form-data" onchange="preview_image(event)">
+            <br><hr>
+            <img id="display_img" style="max-height:210px;"/>
+        </form>    
+        </form>
+        <br>
+        </div>
+        <input type="button" value="CREATE STUDENT" class="btn btn-outline-primary createstudent2" id="createstudent2">
+        
+        
+    </div>
+</br>
+    <div class="primary_result" id="primary_result">
+        <h2 id="primresulttitle">PRIMARY RESULT</h2>
+        {% csrf_token %}
+        <form action="" id="primresultform">
+            
+            <div class="row col-11">
+
+                <select name="" id="resultsessionslistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Session</option>
+                </select>
+                <div class="col-2"></div>
+                <select name="" id="resultsectionlistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Section</option>
+                </select>
+            </div>
+        </br>
+        <div class="row col-11">
+            <select name="" id="resultclasslistdropdown" class="col-5 ui dropdown form-control">
+                <option value="" selected disabled hidden>Choose a Class</option>
+            </select>
+            <div class="col-2"></div>
+            <select name="" id="resulttermlistdropdown" class="col-5 ui dropdown form-control">
+                <option value="" selected hidden disabled>Choose a Term</option>
+            </select>
+        </div>
+    </br>
+    <div class="row col-11">
+        <select name="" id="resultsubjectlistdropdown" class="col-5 ui dropdown form-control">
+            <option value="" selected disabled hidden>Choose a Subject</option>
+        </select>
+    </div>
+
+        </form>
+    </br>
+        <div id="resultlist" style="width: 96%!important;" class="resultlistlist">
+            <div id="resultlist2" class="resultlistlist2" >
+                <div class="card">
+                    <div class="card-body">
+                        <form action="" class="row">
+                            <h5 class="col-4" style="margin-left: 20px!important;">STUDENT NAME</h5>
+                            <h5 class="col-1" style="margin-left: 40px!important;">1ST CA</h5>
+                            <h5 class="col-1" style="margin-left: 40px!important;">2ND CA</h5>
+                            <h5 class="col-1" style="margin-left: 40px!important;">3RD CA</h1>
+                            <h5 class="col-1" style="margin-left: 40px!important;">4TH CA</h5>
+                            <h5 class="col-1" style="margin-left: 40px!important;">EXAM</h5>
+                        </form>
+                    
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+           
+            
+        </div>
+        <br>
+        <div class="row col-12">
+            <div class="col-10"></div>
+            <input type="button" value="UPDATE" class="btn btn-outline-primary" name="resultupdatebtn" id="resultupdatebtn">
+            <div class="ml-2"></div>
+            <input type="button" value="SAVE" class="btn btn-outline-success" name="resultsavebtn" id="resultsavebtn">
+        </div>
+        
+    </div>
+    <div id="nursery_result" class="nursery_result">
+        <h2 id="nurresulttitle">NURSERY RESULT</h2>
+        {% csrf_token %}
+        <form action="" id="nurseryresultform">
+            <div class="row col-11">
+                <select name="" id="nurresultsessionslistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Session</option>
+                </select>
+                <div class="col-2"></div>
+                <select name="" id="nurresultsectionlistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Section</option>
+                </select>
+            </div>
+        </br>
+        <div class="row col-11">
+            <select name="" id="nurresultclasslistdropdown" class="col-5 ui dropdown form-control">
+                <option value="" selected disabled hidden>Choose a Class</option>
+            </select>
+            <div class="col-2"></div>
+            <select name="" id="nurresulttermlistdropdown" class="col-5 ui dropdown form-control">
+                <option value="" selected disabled hidden>Choose a Term</option>
+            </select>
+        </div>
+    </br>
+    <div class="row col-11">
+        <select name="" id="nurresultsubjectlistdropdown" class="col-5 ui dropdown form-control">
+            <option value="" selected disabled hidden>Choose a Subject</option>
+        </select>
+    </div>
+
+        </form>
+    </br>
+    <div id="nurresultlist" style="width: 100%!important;" class="nurresultlistlist">
+        
+        <div id="nurresultlist2" class="nurresultlistlist2 col-12" >
+            
+        </div>
+        
+       
+        
+    </div>
+       
+    </div>
+    <div class="primpsyc" id="primpsyc">
+        <h2 id="h2tgforprimpsyc">PRIMARY PSYCHOMOTOR SKILLS</h2>
+        {% csrf_token %}
+        <form action="" id="primpsycform">
+            
+            <div class="row col-11">
+
+                <select name="" id="primresultsessionslistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Session</option>
+                </select>
+                <div class="col-2"></div>
+                <select name="" id="primresultsectionlistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Section</option>
+                </select>
+            </div>
+        </br>
+        <div class="row col-11">
+            <select name="" id="primresultclasslistdropdown" class="col-5 ui dropdown form-control">
+                <option value="" selected disabled hidden>Choose a Class</option>
+            </select>
+            <div class="col-2"></div>
+            <select name="" id="primresulttermlistdropdown" class="col-5 ui dropdown form-control">
+                <option value="" selected disabled hidden>Choose a Term</option>
+            </select>
+        </div>
+    </br>
+    <div class="row col-11">
+        <select name="" id="primresultpsychomotorlistdropdown" class="col-5 ui dropdown form-control">
+            <option value="" selected disabled hidden>Choose Psychomotor Skill</option>
+        </select>
+        
+    </div>
+
+        </form>
+        <br>
+        <div id="primpsyclist" style="width: 96%!important;" class="primpsyclist">
+            <div id="primpsyclist2" class="primpsyclist2" >
+                <div class="card">
+                    <div class="card-body">
+                        <form action="" class="row">
+                            <h5 class="col-5" style="margin-left: 20px!important;">STUDENT NAME</h5>
+                            
+                        </form>
+  
+                    </div>
+                </div>
+            </div>
+            
+           
+            
+        </div>
+        <br>
+        <div class="row col-12">
+            <div class="col-10"></div>
+            
+            <div class="ml-2"></div>
+            <input type="button" value="SAVE" class="btn btn-outline-success" name="psycsavebtn" id="psycsavebtn">
+        </div>
+    </div>
+    <div class="commentsinput" id="commentsinput">
+        <h2 id="commentsh2tg">HEADTEACHER AND TEACHERS' COMMENTS</h2>
+        {% csrf_token %}
+        <form action="" id="commentsinputform">
+            <div class="row col-11">
+                <select name="" id="commentsessionslistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Session</option>
+                </select>
+                <div class="col-2"></div>
+                <select name="" id="commentsectionlistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Section</option>
+                </select>
+            </div>
+        </br>
+        <div class="row col-11">
+            <select name="" id="commentclasslistdropdown" class="col-5 ui dropdown form-control">
+                <option value="" selected disabled hidden>Choose a Class</option>
+            </select>
+            <div class="col-2"></div>
+            <select name="" id="commenttermlistdropdown" class="col-5 ui dropdown form-control">
+                <option value="" selected disabled hidden>Choose a Term</option>
+            </select>
+        </div>
+    </br>
+    
+
+        </form>
+    </br>
+    <div id="commentlist" style="width: 100%!important;" class="commentlist">
+        
+        <div id="commentlist2" class="commentlist2 col-12" >
+            
+        </div>
+        
+       
+        
+    </div>
+    <br>
+    <div class="row col-12">
+        <div class="col-10"></div>
+        
+        <div class="ml-2"></div>
+        <input type="button" value="SAVE" class="btn btn-outline-success" name="commentsavebtn" id="commentsavebtn">
+    </div>
+
+    </div>
+    <div class="studentdetails" id="studentdetails">
+        <h2 id="studentdetailstitle">EDIT STUDENT DETAILS</h2>
+        {% csrf_token %}
+        <form action="" id="studentdetailsform">
+            
+            <div class="row col-11">
+
+                <select name="" id="detailssessionslistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Session</option>
+                </select>
+                <div class="col-2"></div>
+                <select name="" id="detailssectionlistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Section</option>
+                </select>
+            </div>
+        </br>
+        <div class="row col-11">
+            <select name="" id="detailsclasslistdropdown" class="col-5 ui dropdown form-control">
+                <option value="" selected disabled hidden>Choose a Class</option>
+            </select>
+            <div class="col-2"></div>
+        </div>
+    </br>
+        </form>
+    </br>
+    <div id="studentdetailslist" style="width: 96%!important;" class="studentdetailslist">
+        <div id="studentdetailslist2" class="studentdetailslist2" >
+            
+            </div>
+    </div>
+
+    </div>
+    <div class="primresultsheet" id="primresultsheet">
+        <h2 id="h2tgforprimsheet">PRIMARY RESULT SHEET</h2>
+        {% csrf_token %}
+        <form action="" id="primresultsheetform">
+            
+            <div class="row col-11">
+
+                <select name="" id="resultsheetsessionslistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Session</option>
+                </select>
+                <div class="col-2"></div>
+                <select name="" id="resultsheetsectionlistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Section</option>
+                </select>
+            </div>
+        </br>
+        <div class="row col-11">
+            <select name="" id="resultsheetclasslistdropdown" class="col-5 ui dropdown form-control">
+                <option value="" selected disabled hidden>Choose a Class</option>
+            </select>
+            <div class="col-2"></div>
+            <select name="" id="resultsheettermlistdropdown" class="col-5 ui dropdown form-control">
+                <option value="" selected hidden disabled>Choose a Term</option>
+            </select>
+        </div>
+    </br>
+    
+
+        </form>
+        <br>
+        <div id="studentresultlistsheet" style="width: 96%!important;" class="studentresultlistsheet">
+            <div id="studentresultlistsheet2" class="studentresultlistsheet2" >
+                <div class="card">
+                    <div class="card-body">
+                        <form action="" class="row">
+                            <h5 class="col-7" style="margin-left: 20px!important;">STUDENT NAME</h5>
+                            <h5 class="col-3" style="margin-left: 40px!important;">PRINT PDF</h5>
+                        </form>
+  
+                    </div>
+                </div>
+            </div>
+            
+           
+            
+        </div>
+        
+    </div>
+    <div class="nurresultsheet" id="nurresultsheet">
+        <h2 id="h2tgfornursheet">NURSERY RESULT SHEET</h2>
+        {% csrf_token %}
+        <form action="" id="nurresultsheetform">
+            
+            <div class="row col-11">
+
+                <select name="" id="nurresultsheetsessionslistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Session</option>
+                </select>
+                <div class="col-2"></div>
+                <select name="" id="nurresultsheetsectionlistdropdown" class="col-5 ui dropdown form-control">
+                    <option value="" selected disabled hidden>Choose a Section</option>
+                </select>
+            </div>
+        </br>
+        <div class="row col-11">
+            <select name="" id="nurresultsheetclasslistdropdown" class="col-5 ui dropdown form-control">
+                <option value="" selected disabled hidden>Choose a Class</option>
+            </select>
+            <div class="col-2"></div>
+            <select name="" id="nurresultsheettermlistdropdown" class="col-5 ui dropdown form-control">
+                <option value="" selected hidden disabled>Choose a Term</option>
+            </select>
+        </div>
+    </br>
+    <div class="row col-11">
+        <select name="" id="nurresultsheetsubjectlistdropdown" class="col-5 ui dropdown form-control">
+            <option value="" selected disabled hidden>Choose a Subject</option>
+        </select>
+    </div>
+
+        </form>
+        <br>
+        <div id="nurstudentresultlistsheet" style="width: 96%!important;" class="nurstudentresultlistsheet">
+            <div id="studentresultlistsheet2" class="studentresultlistsheet2" >
+                <div class="card">
+                    <div class="card-body">
+                        <form action="" class="row">
+                            <h5 class="col-7" style="margin-left: 20px!important;">STUDENT NAME</h5>
+                            <h5 class="col-3" style="margin-left: 40px!important;">PRINT PDF</h5>
+                        </form>
+  
+                    </div>
+                </div>
+            </div>
+            
+           
+            
+        </div>
+    </div>
+    <div>
+        <div class="promotionpage">  
+            <h2>PROMOTION PAGE</h2>
+            <div>
+            </div>
+            <form method="POST" id="createtermsubjectsform">
+            <div class="row col-12 promotiondisplay">
+                
+                    {% csrf_token %}
+                <div style="display:inline; border: 2px solid rgb(47, 58, 214)!important; padding: 5px; border-radius: 5px; height: 70vh!important; margin-right: 0px; overflow:hidden;" class="col-5 float-left promotiondisplay2" id="newid123">
+                    <div class="" style="display: flex;">
+                        <select class="ui dropdown form-control col-6 float-left mt-3" id="promsessionslistdropdown">
+                            <option value="" hidden disabled selected  class="">Choose a Session</option>    
+                        </select>
+                        <select class="ui dropdown form-control col-6 float-right mt-3" id="promsectionslistdropdown">
+                            <div id="section-default-text"><option value="" hidden disabled selected  class="">Choose a Section</option></div>     
+                        </select>
+                    </div>
+                    <div class="" style="display: flex;">
+                        <select class="ui dropdown form-control col-6 float-left mt-3 mb-7" id="promclasslistdropdown">
+                            <div id="section-default-text"><option value="" hidden disabled selected  class="">Choose a Class</option></div>     
+                        </select>
+                        <select class="ui dropdown form-control col-6 float-right mt-3 mb-7" id="promtermlistdropdown">
+                            <option value="" hidden disabled selected  class="">Choose a Term</option>    
+                        </select>
+                    </div>
+                    <div id="prevstudent" class="normaldisplay" style="overflow-y:scroll!important; height: 52vh!important; margin-top: 15px!important;">
+                    </div>
+                </div>
+                <div style="text-align: center; margin: auto; display: flex; justify-content: center; display: grid;" class="col-1">
+                    <input type="button" value="ADD&rtrif;" class="btn btn-outline-success rounded-pill" id="promotebtn" style="margin-bottom: 10px; text-align: center; padding-right: 5px; padding-left: 5px;">
+                    <input type="button" value="&ltrif;REMOVE" class="btn btn-outline-danger rounded-pill" id="demotebtn" style="margin-top: 10px; text-align: center; padding-right: 5px; padding-left: 5px;">
+                </div>
+                <div style=" border: 2px solid rgb(47, 58, 214)!important; border-radius: 5px; overflow: hidden; height: 70vh; display: inline; padding: 5px;" class="col-6 float-right promotiondisplay3">
+                    <div class="" style="display: flex;">
+                        <select class="ui dropdown form-control col-6 float-left mt-3" id="promsessionslistdropdown2">
+                            <option value="" hidden disabled selected  class="">Choose a Session</option>    
+                        </select>
+                        <select class="ui dropdown form-control col-6 float-right mt-3" id="promsectionslistdropdown2">
+                            <div id="section-default-text"><option value="" hidden disabled selected  class="">Choose a Section</option></div>     
+                        </select>
+                    </div>
+                    <div class="" style="display: flex;">
+                        <select class="ui dropdown form-control col-6 float-left mt-3 mb-7" id="promclasslistdropdown2">
+                            <div id="section-default-text"><option value="" hidden disabled selected  class="">Choose a Class</option></div>     
+                        </select>
+                        <select class="ui dropdown form-control col-6 float-right mt-3 mb-7" id="promtermlistdropdown2">
+                            <option value="" hidden disabled selected  class="">Choose a Term</option>    
+                        </select>
+                    </div>
+                    <div id="presentstudent" class="promoteddisplay" style="margin-top: 15px!important; height: 52vh!important; overflow-y: scroll!important;">
+    
+                    </div>
+                    
+                </div>
+                
+            </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <h2>home3</h2>
+        <p>info for tab 3</p>
+    </div>
+</div>
+
+
